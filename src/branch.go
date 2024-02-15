@@ -5,8 +5,7 @@ import (
 	"github.com/xanzy/go-gitlab"
 )
 
-func CreateBranch(token string, project gitlab.Project) {
-	git, _ := gitlab.NewClient(token)
+func CreateBranch(token string, project gitlab.Project, client *gitlab.Client) {
 
 	opt := &gitlab.CreateBranchOptions{
 		Branch: gitlab.Ptr("develop"),
@@ -15,7 +14,7 @@ func CreateBranch(token string, project gitlab.Project) {
 
 	repoID := project.ID
 
-	branch, _, err := git.Branches.CreateBranch(repoID, opt)
+	branch, _, err := client.Branches.CreateBranch(repoID, opt)
 
 	if err != nil {
 		fmt.Println(err)
