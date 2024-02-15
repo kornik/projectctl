@@ -5,8 +5,7 @@ import (
 	"github.com/xanzy/go-gitlab"
 )
 
-func CreateProject(token string, name string, description string) *gitlab.Project {
-	git, _ := gitlab.NewClient(token)
+func CreateProject(token string, name string, description string, client *gitlab.Client) *gitlab.Project {
 
 	opt := &gitlab.CreateProjectOptions{
 		Name:                 gitlab.Ptr(name),
@@ -15,7 +14,7 @@ func CreateProject(token string, name string, description string) *gitlab.Projec
 		DefaultBranch:        gitlab.Ptr("master"),
 	}
 
-	project, _, err := git.Projects.CreateProject(opt)
+	project, _, err := client.Projects.CreateProject(opt)
 	if err != nil {
 		fmt.Println(err)
 		return nil
@@ -25,10 +24,9 @@ func CreateProject(token string, name string, description string) *gitlab.Projec
 	return project
 }
 
-func DeleteProject(token string, project gitlab.Project) {
-	git, _ := gitlab.NewClient(token)
+func DeleteProject(token string, project gitlab.Project, client gitlab.Client) {
 
-	_, err := git.Projects.DeleteProject(project.ID)
+	_, err := client.Projects.DeleteProject(project.ID)
 	if err != nil {
 		fmt.Println(err)
 		return

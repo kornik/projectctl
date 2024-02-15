@@ -11,6 +11,8 @@ import (
 
 var name string
 var token string
+var gitlabUrl string
+var client = src.CreateClient(token, gitlabUrl)
 
 // createCmd represents the create command
 var createCmd = &cobra.Command{
@@ -24,7 +26,7 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//src.CreateTF(".", token)
-		project := src.CreateProject(token, name, "test")
+		project := src.CreateProject(token, name, "test", client)
 		src.CreateBranch(token, *project)
 		fmt.Println(project.HTTPURLToRepo)
 		src.CloneCommitPush(*project, token)
@@ -37,6 +39,7 @@ func init() {
 	createCmd.MarkPersistentFlagRequired("name")
 	createCmd.PersistentFlags().StringVarP(&token, "token", "t", "", "Gitlab token")
 	createCmd.MarkPersistentFlagRequired("token")
+	createCmd.PersistentFlags().StringVarP(&gitlabUrl, "url", "u", "", "Gitlab url")
 
 	// Here you will define your flags and configuration settings.
 
