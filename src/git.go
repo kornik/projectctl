@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-func CloneCommitPush(repoURL gitlab.Project, token string) {
+func CloneCommitPush(repoURL gitlab.Project, token string, client *gitlab.Client) {
 	// Clone the repository
 
 	dir, err := os.MkdirTemp("", "clone-example")
@@ -102,7 +102,7 @@ func CloneCommitPush(repoURL gitlab.Project, token string) {
 	if err != nil {
 		log.Printf("Something went wrong at push: %s\n", err)
 		log.Println("Deleting project...")
-		DeleteProject(token, repoURL)
+		DeleteProject(token, repoURL, client)
 		log.Println("Project deleted")
 	}
 	CreateMR(token, repoURL)

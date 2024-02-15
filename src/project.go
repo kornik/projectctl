@@ -24,7 +24,7 @@ func CreateProject(token string, name string, description string, client *gitlab
 	return project
 }
 
-func DeleteProject(token string, project gitlab.Project, client gitlab.Client) {
+func DeleteProject(token string, project gitlab.Project, client *gitlab.Client) {
 
 	_, err := client.Projects.DeleteProject(project.ID)
 	if err != nil {

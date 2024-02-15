@@ -27,9 +27,9 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//src.CreateTF(".", token)
 		project := src.CreateProject(token, name, "test", client)
-		src.CreateBranch(token, *project)
+		src.CreateBranch(token, *project, client)
 		fmt.Println(project.HTTPURLToRepo)
-		src.CloneCommitPush(*project, token)
+		src.CloneCommitPush(*project, token, client)
 	},
 }
 
