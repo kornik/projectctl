@@ -1,0 +1,24 @@
+terraform {
+    required_providers {
+        google = {
+        source  = "google"
+        version = "4.40.0"
+        }
+        google-beta = {
+        source  = "google-beta"
+        version = "4.40.0"
+        }
+    }
+}
+
+provider "google" {
+    credentials = file("terraform-bootstrap.json")
+    project     = var.project
+    region      = var.region
+}
+
+provider "google-beta" {
+    credentials = file("terraform-bootstrap.json")
+    project     = var.project
+    region      = var.region
+}

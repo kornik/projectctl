@@ -1,0 +1,11 @@
+resource "google_org_policy_policy" "restrict_shared_vpc_subnet_{{.ProjectName}}" {
+    name = "projects/{{.ProjectName}}/policies/constraints/compute.restrictSharedVPCSubnetworks"
+
+    parent = "projects/{{.ProjectName}}"
+    spec {
+        rules {
+            values = ["projects/{{.ProjectID}}/regions/europe-{{.Region}}/subnetworks/{{.SubnetName}}"]
+        }
+
+}
+```
