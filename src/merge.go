@@ -5,8 +5,7 @@ import (
 	"github.com/xanzy/go-gitlab"
 )
 
-func CreateMR(token string, project gitlab.Project) {
-	git, _ := gitlab.NewClient(token)
+func CreateMR(token string, project gitlab.Project, client *gitlab.Client) {
 
 	opt := &gitlab.CreateMergeRequestOptions{
 		Title:        gitlab.Ptr("Generating Terraform subnets"),
@@ -19,7 +18,7 @@ func CreateMR(token string, project gitlab.Project) {
 
 	fmt.Println("Creating merge request")
 
-	mr, _, err := git.MergeRequests.CreateMergeRequest(repoID, opt)
+	mr, _, err := client.MergeRequests.CreateMergeRequest(repoID, opt)
 
 	if err != nil {
 		fmt.Println(err)
